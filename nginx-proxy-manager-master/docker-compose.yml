@@ -1,0 +1,26 @@
+version: '3.1'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - red_nginxPM
+
+networks:
+  red_nginxPM:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.6.0/24
+
+#http://127.0.0.1:81
+#Default Admin User:
+#Email:    admin@example.com
+#Password: changeme

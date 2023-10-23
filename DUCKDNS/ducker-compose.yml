@@ -1,0 +1,24 @@
+version: "2.1"
+services:
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      - PUID=1000 #optional
+      - PGID=1000 #optional
+      - TZ=Etc/UTC #optional
+      - SUBDOMAINS=nginx-saul #subdomain1,subdomain2  DATOS A CAMBIAR
+      - TOKEN=c8e24fc5-78a0-4002-9af6-ac1c2cbf68b3 # DATOS A CAMBIAR
+      - LOG_FILE=true #optional
+    volumes:
+      - ./duckData/config:/config #optional
+    restart: unless-stopped
+    networks:
+      - red_duckdns
+
+networks:
+  red_duckdns:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.4.0/24
